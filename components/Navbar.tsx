@@ -20,24 +20,30 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <div className="font-semibold tracking-tight">Aarti Buxani</div>
+    <header className="sticky top-0 z-50 border-b bg-white">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 items-center px-8 py-8">
+        
+        {/* LEFT SIDE — BRAND */}
+        <div className="text-4xl font-semibold tracking-wide">
+          Aarti Buxani
+        </div>
 
-        <nav className="hidden gap-6 md:flex">
+        {/* RIGHT SIDE — NAVIGATION */}
+        <nav className="hidden md:flex justify-end gap-10 text-lg">
           {items.map((it) => (
             <button
               key={it.id}
               onClick={() => scrollTo(it.id)}
-              className="text-sm text-neutral-700 hover:text-neutral-950"
+              className="text-neutral-700 hover:text-black transition"
             >
               {it.label}
             </button>
           ))}
         </nav>
 
+        {/* MOBILE MENU BUTTON */}
         <button
-          className="md:hidden rounded-lg border px-3 py-2 text-sm"
+          className="absolute right-6 md:hidden text-2xl"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -45,14 +51,15 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* MOBILE DROPDOWN */}
       {open && (
         <div className="border-t bg-white md:hidden">
-          <div className="mx-auto max-w-5xl px-4 py-2">
+          <div className="mx-auto max-w-6xl px-6 py-4 space-y-3">
             {items.map((it) => (
               <button
                 key={it.id}
                 onClick={() => scrollTo(it.id)}
-                className="block w-full py-2 text-left text-sm text-neutral-700 hover:text-neutral-950"
+                className="block w-full text-left text-lg"
               >
                 {it.label}
               </button>
