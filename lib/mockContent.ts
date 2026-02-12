@@ -5,11 +5,15 @@ export const mockContent: SiteContent = {
     { src: "https://picsum.photos/1200/800", alt: "Artwork slide 1", title: "Slide 1", description: "Description for slide 1"},
     { src: "https://picsum.photos/1200/800", alt: "Artwork slide 2", title: "Slide 2", description: "Description for slide 2" },
     { src: "https://picsum.photos/1200/800", alt: "Artwork slide 3", title: "Slide 3", description: "Description for slide 3" },
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 4", title: "Slide 4", description: "Description for slide 4"},
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 5", title: "Slide 5", description: "Description for slide 5" },
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 6", title: "Slide 6", description: "Description for slide 6" },
   ],
   sculptures: [
     { src: "https://picsum.photos/1200/800", alt: "Artwork slide 1", title: "Slide 1", description: "Description for slide 1"},
     { src: "https://picsum.photos/1200/800", alt: "Artwork slide 2", title: "Slide 2", description: "Description for slide 2" },
     { src: "https://picsum.photos/1200/800", alt: "Artwork slide 3", title: "Slide 3", description: "Description for slide 3" },
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 4", title: "Slide 4", description: "Description for slide 4"},
   ],
   about: {
     heading: "About",
