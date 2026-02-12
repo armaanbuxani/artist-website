@@ -7,6 +7,7 @@ import Contact from "@/components/Contact";
 
 import { SECTION_IDS } from "@/lib/sectionIds";
 import { mockContent } from "@/lib/mockContent";
+import Workshops from "@/components/Workshops";
 
 export default function Home() {
   const content = mockContent;
@@ -25,7 +26,7 @@ export default function Home() {
 
         <section id={SECTION_IDS.events} className="space-y-6">
           <h2 className="text-2xl font-semibold">Workshops</h2>
-          <Events workshops={content.eventsPast} />
+          <Workshops workshops={content.workshops} />
         </section>
 
         <section id={SECTION_IDS.about} className="space-y-6">

@@ -35,7 +35,7 @@ export type ContactContent = {
 export type SiteContent = {
   paintings: Paintings[];
   sculptures: Sculptures[];
+  workshops: WorkshopItem[];
   about: AboutContent;
-  eventsPast: WorkshopItem[];
   contact: ContactContent;
 };

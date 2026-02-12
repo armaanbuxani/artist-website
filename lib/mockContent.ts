@@ -17,20 +17,36 @@ export const mockContent: SiteContent = {
       "Aarti Buxani creates paintings and sculptural works inspired by nature, texture, and intricate detail. This is dummy copy — replace later with your real bio.",
     image: "https://picsum.photos/1200/800",
   },
-  eventsPast: [
-    {
-      title: "Exhibition at XYZ Gallery",
-      date: "Jan 2026",
-      description: "A curated selection of paintings and sculptures.",
-      image: "https://picsum.photos/1200/800",
-    },
-    {
-      title: "Workshop Showcase",
-      date: "Dec 2025",
-      description: "Live demo + showcase of recent work.",
-      image: "https://picsum.photos/1200/800",
-    },
-  ],
+  workshops: [
+  {
+    title: "Floral Sculpting Masterclass",
+    date: "March 28, 2026",
+    description:
+      "An immersive hands-on workshop exploring textured floral forms and sculptural paste detailing.",
+    image: "https://picsum.photos/1200/800",
+  },
+  {
+    title: "Botanical Texture Series",
+    date: "January 15, 2026",
+    description:
+      "A focused session on creating depth using layered paste and botanical references.",
+    image: "https://picsum.photos/1200/800",
+  },
+  {
+    title: "Sculptural Canvas Techniques",
+    date: "October 3, 2025",
+    description:
+      "Exploring dimensional compositions and raised textures for dramatic statement pieces.",
+    image: "https://picsum.photos/1200/800",
+  },
+  {
+    title: "Contemporary Floral Forms",
+    date: "July 12, 2025",
+    description:
+      "A modern interpretation of traditional floral sculpting techniques.",
+    image: "https://picsum.photos/1200/800",
+  },
+],
   contact: {
     blurb: "For commissions, exhibitions, collaborations, or purchases, reach out below.",
     email: "aarti@example.com",

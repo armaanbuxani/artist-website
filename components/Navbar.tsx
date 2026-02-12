@@ -23,8 +23,12 @@ export default function Navbar() {
       <div className="mx-auto grid max-w-6xl grid-cols-2 items-center px-8 py-8">
         
         {/* LEFT SIDE — BRAND */}
-        <div className="text-4xl font-semibold tracking-wide">
-          Aarti Buxani
+        <div className="flex items-center">
+          <img
+            src="/artist-logo.png"
+            alt="Aarti Buxani"
+            className="h-12 w-auto object-contain origin-left scale-300"
+          />
         </div>
 
         {/* RIGHT SIDE — NAVIGATION */}
