@@ -4,11 +4,10 @@ import { useState } from "react";
 import { SECTION_IDS } from "@/lib/sectionIds";
 
 const items = [
-  { id: SECTION_IDS.home, label: "Home" },
+  { id: SECTION_IDS.paintings, label: "Paintings" },
+  { id: SECTION_IDS.sculptures, label: "Sculptures" },
+  { id: SECTION_IDS.events, label: "Workshops" },
   { id: SECTION_IDS.about, label: "About" },
-  { id: SECTION_IDS.events, label: "Events" },
-  { id: SECTION_IDS.upcoming, label: "Upcoming" },
-  { id: SECTION_IDS.contact, label: "Contact" },
 ];
 
 export default function Navbar() {

@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { Slide } from "@/lib/types";
+import type { Paintings } from "@/lib/types";
 
 type Props = {
-  slides: Slide[];
+  paintings: Paintings[];
   intervalMs?: number;
 };
 
 type Direction = "next" | "prev";
 
-export default function Slideshow({ slides, intervalMs = 10000 }: Props) {
-  const safeSlides = useMemo(() => slides ?? [], [slides]);
+export default function Paintings({ paintings, intervalMs = 10000 }: Props) {
+  const safeSlides = useMemo(() => paintings ?? [], [paintings]);
 
   const [index, setIndex] = useState(0); 
   const [displayIndex, setDisplayIndex] = useState(0); 

@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
-import Slideshow from "@/components/Slideshow";
+import Slideshow from "@/components/Paintings";
+import SculpturesSlideshow from "@/components/Sculptures";
 import About from "@/components/About";
-import Events from "@/components/Events";
-import UpcomingEvents from "@/components/UpcomingEvents";
+import Events from "@/components/Workshops";
 import Contact from "@/components/Contact";
 
 import { SECTION_IDS } from "@/lib/sectionIds";
@@ -15,22 +15,21 @@ export default function Home() {
     <>
       <Navbar />
       <main className="mx-auto max-w-5xl px-4 py-10 space-y-20">
-        <section id={SECTION_IDS.home} className="space-y-6">
-          <Slideshow slides={content.slides} />
+        <section id={SECTION_IDS.paintings} className="space-y-6">
+          <Slideshow paintings={content.paintings} />
+        </section>
+
+        <section id={SECTION_IDS.sculptures} className="space-y-6">
+          <SculpturesSlideshow sculptures={content.sculptures} />
+        </section>
+
+        <section id={SECTION_IDS.events} className="space-y-6">
+          <h2 className="text-2xl font-semibold">Workshops</h2>
+          <Events workshops={content.eventsPast} />
         </section>
 
         <section id={SECTION_IDS.about} className="space-y-6">
           <About about={content.about} />
-        </section>
-
-        <section id={SECTION_IDS.events} className="space-y-6">
-          <h2 className="text-2xl font-semibold">Events</h2>
-          <Events events={content.eventsPast} />
-        </section>
-
-        <section id={SECTION_IDS.upcoming} className="space-y-6">
-          <h2 className="text-2xl font-semibold">Upcoming</h2>
-          <UpcomingEvents events={content.eventsUpcoming} />
         </section>
 
         <section id={SECTION_IDS.contact} className="space-y-4 pb-10">

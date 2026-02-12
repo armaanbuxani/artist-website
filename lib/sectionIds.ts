@@ -1,8 +1,8 @@
 export const SECTION_IDS = {
-  home: "home",
+  paintings: "paintings",
+  sculptures: "sculptures",
   about: "about",
   events: "events",
-  upcoming: "upcoming",
   contact: "contact",
 } as const;
 

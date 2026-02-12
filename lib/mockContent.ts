@@ -1,7 +1,12 @@
 import type { SiteContent } from "./types";
 
 export const mockContent: SiteContent = {
-  slides: [
+  paintings: [
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 1", title: "Slide 1", description: "Description for slide 1"},
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 2", title: "Slide 2", description: "Description for slide 2" },
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 3", title: "Slide 3", description: "Description for slide 3" },
+  ],
+  sculptures: [
     { src: "https://picsum.photos/1200/800", alt: "Artwork slide 1", title: "Slide 1", description: "Description for slide 1"},
     { src: "https://picsum.photos/1200/800", alt: "Artwork slide 2", title: "Slide 2", description: "Description for slide 2" },
     { src: "https://picsum.photos/1200/800", alt: "Artwork slide 3", title: "Slide 3", description: "Description for slide 3" },
@@ -23,20 +28,6 @@ export const mockContent: SiteContent = {
       title: "Workshop Showcase",
       date: "Dec 2025",
       description: "Live demo + showcase of recent work.",
-      image: "https://picsum.photos/1200/800",
-    },
-  ],
-  eventsUpcoming: [
-    {
-      title: "Upcoming Showcase",
-      date: "Mar 2026",
-      description: "New series launching soon (dummy).",
-      image: "https://picsum.photos/1200/800",
-    },
-    {
-      title: "Private Viewing",
-      date: "Apr 2026",
-      description: "Invite-only viewing for collectors (dummy).",
       image: "https://picsum.photos/1200/800",
     },
   ],

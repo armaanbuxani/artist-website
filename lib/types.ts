@@ -1,11 +1,18 @@
-export type Slide = {
+export type Paintings = {
   src: string;
   alt: string;
   title: string;
   description: string;
 };
 
-export type EventItem = {
+export type Sculptures = {
+  src: string;
+  alt: string;
+  title: string;
+  description: string;
+};
+
+export type WorkshopItem = {
   title: string;
   date: string;
   description: string;
@@ -26,9 +33,9 @@ export type ContactContent = {
 };
 
 export type SiteContent = {
-  slides: Slide[];
+  paintings: Paintings[];
+  sculptures: Sculptures[];
   about: AboutContent;
-  eventsPast: EventItem[];
-  eventsUpcoming: EventItem[];
+  eventsPast: WorkshopItem[];
   contact: ContactContent;
 };
