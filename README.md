@@ -1,4 +1,4 @@
-# AartiStudio Website
+# Artist Website
 
 A single-page art portfolio and events website built with Next.js and TypeScript.  
 The site uses Google Sheets as a lightweight CMS so content can be updated without modifying code.
