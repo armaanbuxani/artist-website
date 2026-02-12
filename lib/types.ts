@@ -28,8 +28,8 @@ export type AboutContent = {
 export type ContactContent = {
   blurb: string;
   email: string;
-  whatsapp: string;
   instagram: string;
+  facebook: string;
 };
 
 export type SiteContent = {

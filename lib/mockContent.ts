@@ -49,8 +49,8 @@ export const mockContent: SiteContent = {
 ],
   contact: {
     blurb: "For commissions, exhibitions, collaborations, or purchases, reach out below.",
-    email: "aarti@example.com",
-    whatsapp: "+91 90000 00000",
-    instagram: "https://picsum.photos/1200/800",
+    email: "aartibux@gmail.com",
+    instagram: "https://www.instagram.com/aartibuxaniart/",
+    facebook: "https://www.facebook.com/AartiBux/",
   },
 };

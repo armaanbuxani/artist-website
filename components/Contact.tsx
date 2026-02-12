@@ -9,31 +9,43 @@ export default function Contact({ contact }: Props) {
     <>
       <p className="text-neutral-700">{contact.blurb}</p>
 
-      <div className="space-y-2 text-sm">
+      <div className="space-y-3 text-sm">
+        {/* Email */}
         <div>
           <span className="font-medium">Email: </span>
           <a className="underline" href={`mailto:${contact.email}`}>
             {contact.email}
           </a>
         </div>
-        <div>
-          <span className="font-medium">WhatsApp: </span>
+
+        {/* Social Icons Row */}
+        <div className="flex items-center gap-4 pt-2">
           <a
-            className="underline"
-            href={`https://wa.me/${contact.whatsapp.replace(/\D/g, "")}`}
-          >
-            {contact.whatsapp}
-          </a>
-        </div>
-        <div>
-          <span className="font-medium">Instagram: </span>
-          <a
-            className="underline"
             href={contact.instagram}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="opacity-80 hover:opacity-100 transition"
           >
-            {contact.instagram}
+            <img
+              src="/instagram.png"
+              alt="Instagram"
+              className="h-8 w-8"
+            />
+          </a>
+
+          <a
+            href={contact.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            className="opacity-80 hover:opacity-100 transition"
+          >
+            <img
+              src="/facebook.png"
+              alt="Facebook"
+              className="h-8 w-8"
+            />
           </a>
         </div>
       </div>
