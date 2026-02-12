@@ -2,9 +2,9 @@ import type { SiteContent } from "./types";
 
 export const mockContent: SiteContent = {
   slides: [
-    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 1" },
-    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 2" },
-    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 3" },
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 1", title: "Slide 1", description: "Description for slide 1"},
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 2", title: "Slide 2", description: "Description for slide 2" },
+    { src: "https://picsum.photos/1200/800", alt: "Artwork slide 3", title: "Slide 3", description: "Description for slide 3" },
   ],
   about: {
     heading: "About",

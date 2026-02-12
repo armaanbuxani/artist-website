@@ -16,7 +16,6 @@ export default function Home() {
       <Navbar />
       <main className="mx-auto max-w-5xl px-4 py-10 space-y-20">
         <section id={SECTION_IDS.home} className="space-y-6">
-          <h1 className="text-3xl font-semibold">Aarti Buxani</h1>
           <Slideshow slides={content.slides} />
         </section>
 

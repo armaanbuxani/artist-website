@@ -1,6 +1,8 @@
 export type Slide = {
   src: string;
   alt: string;
+  title: string;
+  description: string;
 };
 
 export type EventItem = {
