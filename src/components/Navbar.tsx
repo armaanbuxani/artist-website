@@ -26,9 +26,15 @@ const Navbar = () => {
         {/* Logo */}
         <button
           onClick={() => scrollTo(SECTION_IDS.paintings)}
-          className="font-playfair text-lg tracking-[0.15em] text-foreground"
+          className="flex items-center"
+          aria-label="Go to Home"
         >
-          EV
+          <img
+            src="/artist-logo.png"
+            alt="Artist Logo"
+            className="h-[90px] w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+
+          />
         </button>
 
         {/* Desktop nav */}
