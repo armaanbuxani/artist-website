@@ -12,7 +12,13 @@ const Index = () => {
   const [content, setContent] = useState<Content | null>(null);
 
   useEffect(() => {
-    fetchContent().then(setContent);
+    fetchContent()
+      .then((data) => {
+        setContent(data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch content:", err);
+      });
   }, []);
 
   if (!content) {
