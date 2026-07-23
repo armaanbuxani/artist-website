@@ -4,6 +4,7 @@ const SHEET_ID = "1XS1BbVBxaySxsfneMISNPFRpUaIl1qYyRtFGt_j9040";
 
 type GvizCell = {
   v?: string | number | null;
+  f?: string | null;
 };
 
 type GvizRow = {
@@ -50,7 +51,7 @@ async function fetchSheet(tabName: string): Promise<string[][]> {
 
   return rows.map((row) =>
     (row.c ?? []).map((cell) => {
-      const value = cell?.v;
+      const value = cell?.f ?? cell?.v;
       return value == null ? "" : String(value);
     })
   );
@@ -93,14 +94,17 @@ export async function fetchContent(): Promise<Content> {
 
   const workshops = sortByOrder(
     workshopsRows
-      .filter((row) => row[0] && row[1] && row[2])
+      .filter((row) => row[0] && row[1])
       .map((row) => ({
         order: Number(row[0]),
         title: row[1],
-        date: row[2],
+        date: row[2] || "TBD",
         description: row[3] ?? "",
-        image: driveToDirectUrl(row[4]),
-        type: row[5] === "upcoming" ? "upcoming" : "past" as "past" | "upcoming",
+        image: driveToDirectUrl(row[4] ?? ""),
+        type:
+          row[5]?.trim().toLowerCase() === "upcoming"
+            ? "upcoming"
+            : ("past" as "past" | "upcoming"),
       }))
   ).map(({ order, ...item }) => item);
 

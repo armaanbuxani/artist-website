@@ -1,19 +1,10 @@
 import { motion } from "framer-motion";
-import { format, parseISO } from "date-fns";
 import type { EventItem } from "@/lib/types";
 import { SECTION_IDS } from "@/lib/sectionIds";
 
 interface Props {
   workshops: EventItem[];
 }
-
-const formatDate = (dateStr: string) => {
-  try {
-    return format(parseISO(dateStr), "MMMM d, yyyy");
-  } catch {
-    return dateStr;
-  }
-};
 
 const WorkshopCard = ({ event, index }: { event: EventItem; index: number }) => (
   <motion.article
@@ -33,7 +24,7 @@ const WorkshopCard = ({ event, index }: { event: EventItem; index: number }) => 
     </div>
     <div className="flex items-start justify-between mb-3">
       <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
-        {formatDate(event.date)}
+        {event.date}
       </p>
       <span
         className={`text-[10px] tracking-[0.2em] uppercase px-2 py-0.5 border ${
@@ -57,40 +48,13 @@ const Workshops = ({ workshops }: Props) => {
   const upcoming = workshops.filter((e) => e.type === "upcoming");
 
   return (
-    <section id={SECTION_IDS.events} className="py-28 md:py-40 px-6 md:px-16 max-w-[1400px] mx-auto">
-      {/* Upcoming */}
-      {upcoming.length > 0 && (
-        <div className="mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-14"
-          >
-            <p className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground mb-4">
-              What's Next
-            </p>
-            <h2 className="font-playfair text-4xl md:text-5xl text-foreground tracking-wide">
-              Upcoming
-            </h2>
-          </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
-            {upcoming.map((event, i) => (
-              <WorkshopCard key={i} event={event} index={i} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Divider */}
-      {upcoming.length > 0 && past.length > 0 && (
-        <div className="border-t border-border/30 mb-24" />
-      )}
-
+    <section
+      id={SECTION_IDS.events}
+      className="py-28 md:py-40 px-6 md:px-16 max-w-[1400px] mx-auto"
+    >
       {/* Past */}
       {past.length > 0 && (
-        <div>
+        <div className="mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -101,12 +65,46 @@ const Workshops = ({ workshops }: Props) => {
             <p className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground mb-4">
               Exhibition History
             </p>
+
             <h2 className="font-playfair text-4xl md:text-5xl text-foreground tracking-wide">
               Past Events
             </h2>
           </motion.div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
             {past.map((event, i) => (
+              <WorkshopCard key={i} event={event} index={i} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Divider */}
+      {past.length > 0 && upcoming.length > 0 && (
+        <div className="border-t border-border/30 mb-24" />
+      )}
+
+      {/* Upcoming */}
+      {upcoming.length > 0 && (
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-14"
+          >
+            <p className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground mb-4">
+              What's Next
+            </p>
+
+            <h2 className="font-playfair text-4xl md:text-5xl text-foreground tracking-wide">
+              Upcoming
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
+            {upcoming.map((event, i) => (
               <WorkshopCard key={i} event={event} index={i} />
             ))}
           </div>

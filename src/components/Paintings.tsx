@@ -30,18 +30,49 @@ const Paintings = ({ paintings }: Props) => {
     return () => clearInterval(interval);
   }, [emblaApi]);
 
+  useEffect(() => {
+    if (paintings.length < 2) return;
+
+    const indexesToPreload = [
+      (current + 1) % paintings.length,
+      (current - 1 + paintings.length) % paintings.length,
+    ];
+
+    indexesToPreload.forEach((index) => {
+      const image = new Image();
+      image.src = paintings[index].image;
+    });
+  }, [current, paintings]);
+
   return (
     <section id={SECTION_IDS.paintings} className="relative w-full h-screen">
       <div ref={emblaRef} className="overflow-hidden h-full">
         <div className="flex h-full">
           {paintings.map((painting, i) => (
             <div key={i} className="relative flex-[0_0_100%] min-w-0 h-full">
-              <img
-                src={painting.image}
-                alt={painting.title}
-                className="w-full h-full object-cover"
-                loading={i === 0 ? "eager" : "lazy"}
-              />
+              <div className="absolute inset-0 overflow-hidden bg-black">
+                {/* Blurred background fills the entire screen */}
+                <img
+                  src={painting.image}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full scale-110 object-cover blur-3xl opacity-50"
+                  loading={i === 0 ? "eager" : "lazy"}
+                />
+
+                {/* Optional dark layer so the blurred background is less distracting */}
+                <div className="absolute inset-0 bg-black/20" />
+
+                {/* Full painting shown without cropping */}
+                <img
+                  src={painting.image}
+                  alt={painting.title}
+                  className="absolute inset-0 z-10 h-full w-full object-contain"
+                  loading={i === 0 ? "eager" : "lazy"}
+                  fetchPriority={i === 0 ? "high" : "auto"}
+                  decoding={i === 0 ? "sync" : "async"}
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
               <AnimatePresence mode="wait">
                 {i === current && (

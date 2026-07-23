@@ -12,13 +12,37 @@ const Index = () => {
   const [content, setContent] = useState<Content | null>(null);
 
   useEffect(() => {
-    fetchContent()
-      .then((data) => {
-        setContent(data);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch content:", err);
-      });
+    let cancelled = false;
+
+    const loadWebsite = async () => {
+      try {
+        const data = await fetchContent();
+
+        const firstPainting = data.paintings[0]?.image;
+
+        if (firstPainting) {
+          await new Promise<void>((resolve) => {
+            const image = new Image();
+
+            image.onload = () => resolve();
+            image.onerror = () => resolve();
+            image.src = firstPainting;
+          });
+        }
+
+        if (!cancelled) {
+          setContent(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch content:", error);
+      }
+    };
+
+    loadWebsite();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (!content) {

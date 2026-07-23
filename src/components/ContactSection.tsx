@@ -86,7 +86,7 @@ const ContactSection = ({ contact }: Props) => {
         {/* Footer */}
         <div className="mt-24 pt-8 border-t border-border/20">
           <p className="text-[11px] text-muted-foreground tracking-[0.2em]">
-            © {new Date().getFullYear()} Elena Vasquez · All rights reserved
+            © {new Date().getFullYear()} Aarti Buxani · All rights reserved
           </p>
         </div>
       </div>

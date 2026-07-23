@@ -29,7 +29,7 @@ const Sculptures = ({ sculptures }: Props) => {
       </motion.div>
 
       {/* Masonry-style grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+      <div className="columns-1 sm:columns-2 md:columns-3 gap-4 md:gap-6">
         {sculptures.map((sculpture, i) => {
           // Alternate tall/short for visual rhythm
           const isTall = i % 3 === 0;
@@ -40,14 +40,15 @@ const Sculptures = ({ sculptures }: Props) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.7, delay: (i % 3) * 0.12 }}
-              className="group cursor-pointer"
+              className="group mb-8 md:mb-10 break-inside-avoid"
             >
-              <div className={`overflow-hidden ${isTall ? "h-[420px] md:h-[540px]" : "h-[320px] md:h-[400px]"}`}>
+              <div className="overflow-hidden">
                 <img
                   src={sculpture.image}
                   alt={sculpture.title}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  className="block w-full h-auto object-contain"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <motion.div

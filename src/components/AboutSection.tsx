@@ -61,7 +61,7 @@ const AboutSection = ({ about }: Props) => {
           <div className="mt-12 flex items-center gap-4">
             <div className="h-[1px] w-12 bg-border" />
             <span className="font-playfair text-sm text-muted-foreground italic tracking-wide">
-              Studio, Barcelona & New York
+              Pune, Maharashtra, India
             </span>
           </div>
         </motion.div>
