@@ -1,23 +1,64 @@
- AartiStudio Website
+# Artist Website
 
-A single-page art portfolio and events website built with Next.js and TypeScript.  
-The site uses Google Sheets as a lightweight CMS so content can be updated without modifying code.
+A simple, responsive portfolio website created for contemporary Indian artist **Aarti Buxani**. The website showcases her paintings, sculptures, workshops, artistic background, and contact information.
 
-## Goal
+Content is managed through Google Sheets, allowing artwork and workshop details to be updated without changing the website's code.
 
-Build a clean, responsive website where:
-- Featured artworks are displayed in a slideshow
-- Past and upcoming events are listed dynamically
-- Content is managed through Google Sheets instead of a custom admin dashboard
+## Live Website
 
-## Tech Stack
+[View the website](aartibuxani.com)
 
-- Next.js (App Router)
+## Features
+
+- Painting and sculpture galleries
+- Upcoming and past workshop listings
+- Artist biography and contact information
+- Responsive design for mobile and desktop
+- Content loaded dynamically from Google Sheets
+- Smooth animations and transitions
+
+## Built With
+
+- React
 - TypeScript
+- Vite
 - Tailwind CSS
-- Google Sheets (as CMS)
-- Vercel (planned deployment)
+- Framer Motion
+- React Router
+- Google Sheets
 
-## Status
+## Running Locally
 
-In Progress
+1. Clone the repository:
+
+```bash
+git clone https://github.com/armaanbuxani/artist-website
+```
+
+2. Open the project directory:
+
+```bash
+cd artist-website-main
+```
+
+3. Install the dependencies:
+
+```bash
+npm install
+```
+
+4. Start the development server:
+
+```bash
+npm run dev
+```
+
+The website will be available at the local address shown in the terminal.
+
+## Content Management
+
+Paintings, sculptures, workshops, biography details, and contact information are retrieved from Google Sheets. This allows the website's content to be updated without editing or redeploying the source code.
+
+## Credits
+
+Designed and developed by **Armaan Buxani** for artist **Aarti Buxani**.
