@@ -1,3 +1,9 @@
+export interface HomeItem {
+  image: string;
+  title: string;
+  caption: string;
+}
+
 export interface Painting {
   image: string;
   title: string;
@@ -33,6 +39,7 @@ export interface Contact {
 }
 
 export interface Content {
+  home: HomeItem[];
   paintings: Painting[];
   sculptures: Sculpture[];
   about: About;

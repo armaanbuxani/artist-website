@@ -1,45 +1,38 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { NavLink } from "react-router-dom";
-
-const navItems = [
-  { label: "Home", to: "/" },
-  { label: "Paintings", to: "/paintings" },
-  { label: "Sculptures", to: "/sculptures" },
-  { label: "Pyrography", to: "/pyrography" },
-  { label: "Workshops", to: "/workshops" },
-  { label: "Art for a Cause", to: "/art-for-a-cause" },
-  { label: "About", to: "/about" },
-];
+import { AnimatePresence, motion } from "framer-motion";
+import { Link, NavLink } from "react-router-dom";
+import { NAV_ITEMS } from "@/lib/navigation";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/30">
-      <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 md:px-10 lg:px-16 h-16">
-        {/* Logo */}
-        <div className="flex items-center">
+    <nav className="fixed inset-x-0 top-0 z-50 border-b border-black/5 bg-white/95 backdrop-blur-md">
+      <div className="mx-auto flex h-24 max-w-[1600px] items-center justify-between px-6 sm:px-8 lg:h-28 lg:px-12 xl:px-16">
+        <Link
+          to="/"
+          className="flex shrink-0 items-center"
+          aria-label="Aarti Buxani home"
+          onClick={() => setOpen(false)}
+        >
           <img
             src="/artist-logo.png"
-            alt="Artist Logo"
-            className="h-[90px] w-auto object-contain opacity-90"
-
+            alt="Aarti Buxani"
+            className="h-auto w-[150px] object-contain sm:w-[175px] lg:w-[205px]"
           />
-        </div>
+        </Link>
 
-        {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-5 lg:gap-8">
-          {navItems.map((item) => (
+        <ul className="hidden items-center gap-5 lg:flex xl:gap-8">
+          {NAV_ITEMS.map((item) => (
             <li key={item.to}>
               <NavLink
                 to={item.to}
                 className={({ isActive }) =>
-                  `text-[9px] lg:text-[10px] tracking-[0.18em] lg:tracking-[0.22em] uppercase whitespace-nowrap transition-colors duration-300 ${
+                  `relative block whitespace-nowrap py-2 text-[10px] uppercase tracking-[0.18em] text-black transition-opacity duration-300 after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:bg-black after:transition-transform after:duration-300 ${
                     isActive
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "after:scale-x-100"
+                      : "opacity-60 after:scale-x-0 hover:opacity-100 hover:after:scale-x-100"
                   }`
                 }
               >
@@ -49,19 +42,17 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Mobile toggle */}
         <button
-          className="md:hidden text-foreground"
-          onClick={() => setOpen(!open)}
+          className="flex h-11 w-11 items-center justify-center text-black lg:hidden"
+          onClick={() => setOpen((current) => !current)}
           aria-label="Toggle menu"
           aria-expanded={open}
           aria-controls="mobile-navigation"
         >
-          {open ? <X size={18} /> : <Menu size={18} />}
+          {open ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -69,20 +60,18 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden bg-background border-b border-border/30"
+            className="overflow-hidden border-t border-black/5 bg-white lg:hidden"
             id="mobile-navigation"
           >
-            <ul className="flex flex-col items-center py-10 gap-7">
-              {navItems.map((item) => (
+            <ul className="flex flex-col items-center gap-7 px-6 py-10">
+              {NAV_ITEMS.map((item) => (
                 <li key={item.to}>
                   <NavLink
                     to={item.to}
                     onClick={() => setOpen(false)}
                     className={({ isActive }) =>
-                      `text-[11px] tracking-[0.3em] uppercase transition-colors ${
-                        isActive
-                          ? "text-foreground"
-                          : "text-muted-foreground hover:text-foreground"
+                      `text-[11px] uppercase tracking-[0.24em] transition-opacity ${
+                        isActive ? "text-black" : "text-black/50 hover:text-black"
                       }`
                     }
                   >

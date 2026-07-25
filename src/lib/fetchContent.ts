@@ -62,12 +62,24 @@ function sortByOrder<T extends { order: number }>(items: T[]): T[] {
 }
 
 export async function fetchContent(): Promise<Content> {
-  const [paintingsRows, sculpturesRows, workshopsRows, siteRows] = await Promise.all([
+  const [homeRows, paintingsRows, sculpturesRows, workshopsRows, siteRows] = await Promise.all([
+    fetchSheet("Home"),
     fetchSheet("Paintings"),
     fetchSheet("Sculptures"),
     fetchSheet("Workshops"),
     fetchSheet("Site"),
   ]);
+
+  const home = sortByOrder(
+    homeRows
+      .filter((row) => row[0] && row[1] && row[2])
+      .map((row) => ({
+        order: Number(row[0]),
+        image: driveToDirectUrl(row[1]),
+        title: row[2],
+        caption: row[3] ?? "",
+      }))
+  ).map(({ order, ...item }) => item);
 
   const paintings = sortByOrder(
     paintingsRows
@@ -111,6 +123,7 @@ export async function fetchContent(): Promise<Content> {
   const site = siteRows[0] || [];
 
   return {
+    home,
     paintings,
     sculptures,
     workshops,

@@ -51,7 +51,7 @@ const ContentPage = ({ page }: Props) => {
 
   if (page === "sculptures") {
     return (
-      <main className="pt-16">
+      <main className="pt-24 lg:pt-28">
         <Sculptures sculptures={content.sculptures} />
       </main>
     );
@@ -59,14 +59,14 @@ const ContentPage = ({ page }: Props) => {
 
   if (page === "workshops") {
     return (
-      <main className="pt-16">
+      <main className="pt-24 lg:pt-28">
         <Workshops workshops={content.workshops} />
       </main>
     );
   }
 
   return (
-    <main className="pt-16">
+    <main className="pt-24 lg:pt-28">
       <AboutSection about={content.about} />
       <ContactSection contact={content.contact} />
     </main>

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import SiteFooter from "@/components/SiteFooter";
 
 const SiteLayout = () => {
   const { pathname } = useLocation();
@@ -13,6 +14,7 @@ const SiteLayout = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <Outlet />
+      <SiteFooter />
     </div>
   );
 };
