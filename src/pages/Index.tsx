@@ -15,11 +15,9 @@ const Index = () => {
         className="flex items-center justify-center px-6 py-10 sm:py-12 lg:py-14"
         aria-label="Aarti Buxani"
       >
-        <img
-          src="/artist-logo.png"
-          alt="Aarti Buxani"
-          className="h-auto w-[200px] object-contain sm:w-[225px] lg:w-[240px]"
-        />
+        <h1 className="text-center text-2xl font-light tracking-[0.18em] text-black sm:text-3xl sm:tracking-[0.24em]">
+          Aarti Buxani
+        </h1>
       </section>
 
       <section
