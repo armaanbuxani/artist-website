@@ -1,30 +1,30 @@
 import { motion } from "framer-motion";
-import type { Painting } from "@/lib/types";
+import type { PyrographyItem } from "@/lib/types";
 import { SECTION_IDS } from "@/lib/sectionIds";
 
 interface Props {
-  paintings: Painting[];
+  pyrography: PyrographyItem[];
 }
 
-const Paintings = ({ paintings }: Props) => {
+const Pyrography = ({ pyrography }: Props) => {
   return (
     <section
-      id={SECTION_IDS.paintings}
+      id={SECTION_IDS.pyrography}
       className="bg-white px-6 pb-24 pt-12 sm:px-8 sm:pt-16 md:pb-32 lg:px-12 lg:pb-40 lg:pt-20 xl:px-16"
-      aria-label="Paintings"
+      aria-label="Pyrography"
     >
       <div className="mx-auto max-w-[1600px]">
-        {paintings.length === 0 ? (
+        {pyrography.length === 0 ? (
           <div className="flex min-h-[42vh] items-center justify-center">
             <p className="text-center text-sm text-black/50">
-              New paintings are coming soon.
+              New pyrography work is coming soon.
             </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-9 lg:gap-y-16">
-            {paintings.map((painting, index) => (
+            {pyrography.map((item, index) => (
               <motion.figure
-                key={`${painting.title}-${index}`}
+                key={`${item.title}-${index}`}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
@@ -36,8 +36,8 @@ const Paintings = ({ paintings }: Props) => {
               >
                 <div className="flex aspect-square items-center justify-center overflow-hidden bg-black/[0.04]">
                   <img
-                    src={painting.image}
-                    alt={painting.caption || painting.title}
+                    src={item.image}
+                    alt={item.title}
                     className="block h-full w-full object-contain"
                     loading={index < 3 ? "eager" : "lazy"}
                     fetchPriority={index < 3 ? "high" : "auto"}
@@ -49,14 +49,8 @@ const Paintings = ({ paintings }: Props) => {
 
                 <figcaption className="mt-5 text-center">
                   <h2 className="text-[13px] font-normal tracking-[0.08em] text-black">
-                    {painting.title}
+                    {item.title}
                   </h2>
-
-                  {painting.caption && (
-                    <p className="mt-2 text-[12px] leading-6 text-black/50">
-                      {painting.caption}
-                    </p>
-                  )}
                 </figcaption>
               </motion.figure>
             ))}
@@ -67,4 +61,4 @@ const Paintings = ({ paintings }: Props) => {
   );
 };
 
-export default Paintings;
+export default Pyrography;

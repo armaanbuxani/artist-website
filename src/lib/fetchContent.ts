@@ -17,6 +17,32 @@ type GvizResponse = {
   };
 };
 
+type CauseProjectGroup = {
+  order: number;
+  id: string;
+  title: string;
+  date: string;
+  location: string;
+  description: string;
+  images: {
+    order: number;
+    image: string;
+  }[];
+};
+
+type WorkshopGroup = {
+  order: number;
+  id: string;
+  title: string;
+  date: string;
+  description: string;
+  type: "" | "past" | "upcoming";
+  images: {
+    order: number;
+    image: string;
+  }[];
+};
+
 function driveToDirectUrl(url: string): string {
   if (!url) return url;
   if (!url.includes("drive.google.com")) return url;
@@ -62,10 +88,20 @@ function sortByOrder<T extends { order: number }>(items: T[]): T[] {
 }
 
 export async function fetchContent(): Promise<Content> {
-  const [homeRows, paintingsRows, sculpturesRows, workshopsRows, siteRows] = await Promise.all([
+  const [
+    homeRows,
+    paintingsRows,
+    sculpturesRows,
+    pyrographyRows,
+    causeRows,
+    workshopsRows,
+    siteRows,
+  ] = await Promise.all([
     fetchSheet("Home"),
     fetchSheet("Paintings"),
     fetchSheet("Sculptures"),
+    fetchSheet("Pyrography"),
+    fetchSheet("Art for a cause"),
     fetchSheet("Workshops"),
     fetchSheet("Site"),
   ]);
@@ -104,21 +140,118 @@ export async function fetchContent(): Promise<Content> {
       }))
   ).map(({ order, ...item }) => item);
 
-  const workshops = sortByOrder(
-    workshopsRows
-      .filter((row) => row[0] && row[1])
+  const pyrography = sortByOrder(
+    pyrographyRows
+      .filter((row) => row[0] && row[1] && row[2])
       .map((row) => ({
         order: Number(row[0]),
-        title: row[1],
-        date: row[2] || "TBD",
-        description: row[3] ?? "",
-        image: driveToDirectUrl(row[4] ?? ""),
-        type:
-          row[5]?.trim().toLowerCase() === "upcoming"
-            ? "upcoming"
-            : ("past" as "past" | "upcoming"),
+        image: driveToDirectUrl(row[1]),
+        title: row[2],
       }))
   ).map(({ order, ...item }) => item);
+
+  const causeProjectGroups = new Map<string, CauseProjectGroup>();
+
+  causeRows.forEach((row) => {
+    const rowOrder = Number(row[0]) || 0;
+    const id = row[1]?.trim();
+    const image = driveToDirectUrl(row[6] ?? "");
+
+    if (!id || !image) return;
+
+    const existingGroup = causeProjectGroups.get(id);
+
+    if (!existingGroup) {
+      causeProjectGroups.set(id, {
+        order: rowOrder,
+        id,
+        title: row[2] ?? "",
+        date: row[3] ?? "",
+        location: row[4] ?? "",
+        description: row[5] ?? "",
+        images: [{ order: rowOrder, image }],
+      });
+      return;
+    }
+
+    existingGroup.order = Math.min(existingGroup.order, rowOrder);
+
+    if (!existingGroup.title && row[2]) existingGroup.title = row[2];
+    if (!existingGroup.date && row[3]) existingGroup.date = row[3];
+    if (!existingGroup.location && row[4]) existingGroup.location = row[4];
+    if (!existingGroup.description && row[5]) {
+      existingGroup.description = row[5];
+    }
+
+    existingGroup.images.push({
+      order: rowOrder,
+      image,
+    });
+  });
+
+  const artForCause = [...causeProjectGroups.values()]
+    .sort((a, b) => a.order - b.order)
+    .map(({ order, images, ...project }) => ({
+      ...project,
+      images: [...images]
+        .sort((a, b) => a.order - b.order)
+        .map((item) => item.image),
+    }));
+
+  const workshopGroups = new Map<string, WorkshopGroup>();
+
+  workshopsRows.forEach((row) => {
+    const rowOrder = Number(row[0]) || 0;
+    const id = row[1]?.trim();
+    const image = driveToDirectUrl(row[5] ?? "");
+    const normalizedType = row[6]?.trim().toLowerCase();
+    const type =
+      normalizedType === "upcoming" || normalizedType === "past"
+        ? normalizedType
+        : "";
+
+    if (!id || !image) return;
+
+    const existingGroup = workshopGroups.get(id);
+
+    if (!existingGroup) {
+      workshopGroups.set(id, {
+        order: rowOrder,
+        id,
+        title: row[2] ?? "",
+        date: row[3] ?? "",
+        description: row[4] ?? "",
+        type,
+        images: [{ order: rowOrder, image }],
+      });
+      return;
+    }
+
+    existingGroup.order = Math.min(existingGroup.order, rowOrder);
+
+    if (!existingGroup.title && row[2]) existingGroup.title = row[2];
+    if (!existingGroup.date && row[3]) existingGroup.date = row[3];
+    if (!existingGroup.description && row[4]) {
+      existingGroup.description = row[4];
+    }
+    if (!existingGroup.type && type) existingGroup.type = type;
+
+    existingGroup.images.push({
+      order: rowOrder,
+      image,
+    });
+  });
+
+  const workshops = [...workshopGroups.values()]
+    .sort((a, b) => a.order - b.order)
+    .map(({ order, images, type, ...workshop }) => ({
+      ...workshop,
+      date: workshop.date || "TBD",
+      type: type || ("past" as const),
+      images: [...images]
+        .sort((a, b) => a.order - b.order)
+        .map((item) => item.image),
+    }));
 
   const site = siteRows[0] || [];
 
@@ -126,6 +259,8 @@ export async function fetchContent(): Promise<Content> {
     home,
     paintings,
     sculptures,
+    pyrography,
+    artForCause,
     workshops,
     about: {
       heading: site[0] ?? "",

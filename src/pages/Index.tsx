@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import ContactSection from "@/components/ContactSection";
 import { fetchContent } from "@/lib/fetchContent";
 
 const Index = () => {
@@ -11,9 +10,20 @@ const Index = () => {
   });
 
   return (
-    <main className="min-h-screen bg-white pt-24 lg:pt-28" aria-label="Home">
+    <main className="min-h-screen bg-white" aria-label="Home">
       <section
-        className="px-6 pb-24 pt-12 sm:px-8 sm:pt-16 md:pb-32 lg:px-12 lg:pb-40 lg:pt-20 xl:px-16"
+        className="flex items-center justify-center px-6 py-10 sm:py-12 lg:py-14"
+        aria-label="Aarti Buxani"
+      >
+        <img
+          src="/artist-logo.png"
+          alt="Aarti Buxani"
+          className="h-auto w-[200px] object-contain sm:w-[225px] lg:w-[240px]"
+        />
+      </section>
+
+      <section
+        className="px-6 pb-24 pt-3 sm:px-8 sm:pt-5 md:pb-32 lg:px-12 lg:pb-40 lg:pt-7 xl:px-16"
         aria-label="Featured work"
       >
         <div className="mx-auto max-w-[1600px]">
@@ -80,8 +90,6 @@ const Index = () => {
           )}
         </div>
       </section>
-
-      {content && <ContactSection contact={content.contact} />}
     </main>
   );
 };

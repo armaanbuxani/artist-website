@@ -1,6 +1,8 @@
 export const SECTION_IDS = {
   paintings: "paintings",
   sculptures: "sculptures",
+  pyrography: "pyrography",
+  artForCause: "art-for-a-cause",
   about: "about",
   events: "events",
   contact: "contact",

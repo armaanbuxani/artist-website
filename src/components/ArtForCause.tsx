@@ -5,28 +5,26 @@ import {
   type KeyboardEvent,
 } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import type { EventItem } from "@/lib/types";
+import type { CauseProject } from "@/lib/types";
 import { SECTION_IDS } from "@/lib/sectionIds";
 
 interface Props {
-  workshops: EventItem[];
+  projects: CauseProject[];
 }
 
-interface WorkshopSlideshowProps {
-  workshop: EventItem;
-  eagerLoadFirstImage?: boolean;
+interface ProjectSlideshowProps {
+  project: CauseProject;
+  projectIndex: number;
 }
 
-const UPCOMING_SECTION_ID = "upcoming-workshops";
-
-const WorkshopSlideshow = ({
-  workshop,
-  eagerLoadFirstImage = false,
-}: WorkshopSlideshowProps) => {
+const ProjectSlideshow = ({
+  project,
+  projectIndex,
+}: ProjectSlideshowProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: workshop.images.length > 1,
+    loop: project.images.length > 1,
   });
   const [current, setCurrent] = useState(0);
 
@@ -67,6 +65,10 @@ const WorkshopSlideshow = ({
     }
   };
 
+  const eventDetails = [project.date, project.location]
+    .filter(Boolean)
+    .join(" | ");
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -75,13 +77,13 @@ const WorkshopSlideshow = ({
       transition={{ duration: 0.7 }}
     >
       <header className="mb-5 text-center">
-        <h3 className="font-playfair text-2xl tracking-wide text-black md:text-3xl">
-          {workshop.title}
-        </h3>
+        <h2 className="font-playfair text-2xl tracking-wide text-black md:text-3xl">
+          {project.title}
+        </h2>
 
-        {workshop.date && (
+        {eventDetails && (
           <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-black/45">
-            {workshop.date}
+            {eventDetails}
           </p>
         )}
       </header>
@@ -90,32 +92,32 @@ const WorkshopSlideshow = ({
         className="group relative outline-none focus-visible:ring-2 focus-visible:ring-black/30"
         role="region"
         aria-roledescription="carousel"
-        aria-label={`${workshop.title} image gallery`}
+        aria-label={`${project.title} image gallery`}
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
         <div ref={emblaRef} className="overflow-hidden bg-black/[0.04]">
           <div className="flex">
-            {workshop.images.map((image, imageIndex) => (
+            {project.images.map((image, imageIndex) => (
               <div
-                key={`${workshop.id}-${imageIndex}`}
+                key={`${project.id}-${imageIndex}`}
                 className="min-w-0 flex-[0_0_100%]"
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`Image ${imageIndex + 1} of ${
-                  workshop.images.length
+                  project.images.length
                 }`}
               >
                 <div className="flex h-[clamp(260px,42vh,460px)] items-center justify-center">
                   <img
                     src={image}
-                    alt={`${workshop.title} - image ${imageIndex + 1}`}
+                    alt={`${project.title} — image ${imageIndex + 1}`}
                     className="block h-full w-full object-contain"
                     loading={
-                      eagerLoadFirstImage && imageIndex === 0 ? "eager" : "lazy"
+                      projectIndex === 0 && imageIndex === 0 ? "eager" : "lazy"
                     }
                     fetchPriority={
-                      eagerLoadFirstImage && imageIndex === 0 ? "high" : "auto"
+                      projectIndex === 0 && imageIndex === 0 ? "high" : "auto"
                     }
                     onError={(event) => {
                       event.currentTarget.hidden = true;
@@ -127,13 +129,13 @@ const WorkshopSlideshow = ({
           </div>
         </div>
 
-        {workshop.images.length > 1 && (
+        {project.images.length > 1 && (
           <>
             <button
               type="button"
               onClick={scrollPrevious}
               className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/90 text-black shadow-sm transition-colors hover:bg-white md:left-5"
-              aria-label={`Previous image for ${workshop.title}`}
+              aria-label={`Previous image for ${project.title}`}
             >
               <ChevronLeft size={20} strokeWidth={1.5} />
             </button>
@@ -142,7 +144,7 @@ const WorkshopSlideshow = ({
               type="button"
               onClick={scrollNext}
               className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/90 text-black shadow-sm transition-colors hover:bg-white md:right-5"
-              aria-label={`Next image for ${workshop.title}`}
+              aria-label={`Next image for ${project.title}`}
             >
               <ChevronRight size={20} strokeWidth={1.5} />
             </button>
@@ -150,9 +152,9 @@ const WorkshopSlideshow = ({
         )}
       </div>
 
-      {workshop.images.length > 1 && (
+      {project.images.length > 1 && (
         <div className="mt-3 flex items-center justify-center gap-3">
-          {workshop.images.map((_, imageIndex) => (
+          {project.images.map((_, imageIndex) => (
             <button
               key={imageIndex}
               type="button"
@@ -168,129 +170,48 @@ const WorkshopSlideshow = ({
           ))}
 
           <span className="ml-2 text-[10px] tracking-[0.15em] text-black/40">
-            {current + 1} / {workshop.images.length}
+            {current + 1} / {project.images.length}
           </span>
         </div>
       )}
 
-      {workshop.description && (
+      {project.description && (
         <p className="mx-auto mt-5 max-w-2xl text-center text-[14px] leading-7 text-black/60">
-          {workshop.description}
+          {project.description}
         </p>
       )}
     </motion.article>
   );
 };
 
-const Workshops = ({ workshops }: Props) => {
-  const past = workshops.filter((workshop) => workshop.type === "past");
-  const upcoming = workshops.filter(
-    (workshop) => workshop.type === "upcoming"
-  );
-
-  const scrollToUpcoming = () => {
-    document.getElementById(UPCOMING_SECTION_ID)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
-
+const ArtForCause = ({ projects }: Props) => {
   return (
     <section
-      id={SECTION_IDS.events}
+      id={SECTION_IDS.artForCause}
       className="bg-white px-6 pb-20 pt-8 sm:px-8 sm:pt-10 md:pb-24 lg:px-12 lg:pb-32 lg:pt-12 xl:px-16"
-      aria-label="Workshops"
+      aria-label="Art for a Cause"
     >
       <div className="mx-auto max-w-[900px]">
-        <header className="mb-14 border-b border-black/10 pb-5 md:mb-16">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <h1 className="text-[11px] uppercase tracking-[0.35em] text-black/55">
-              Workshops
-            </h1>
-
-            {upcoming.length > 0 && (
-              <button
-                type="button"
-                onClick={scrollToUpcoming}
-                className="group inline-flex items-center gap-2 border-b border-black/30 pb-1 text-[10px] uppercase tracking-[0.2em] text-black/65 transition-colors hover:border-black hover:text-black"
-              >
-                View Upcoming Workshops
-                <ChevronDown
-                  size={14}
-                  strokeWidth={1.5}
-                  className="transition-transform group-hover:translate-y-0.5"
-                  aria-hidden="true"
-                />
-              </button>
-            )}
-          </div>
-        </header>
-
-        {workshops.length === 0 ? (
+        {projects.length === 0 ? (
           <div className="flex min-h-[42vh] items-center justify-center">
             <p className="text-center text-sm text-black/50">
-              New workshops are coming soon.
+              New cause-based projects are coming soon.
             </p>
           </div>
         ) : (
-          <>
-            {past.length > 0 && (
-              <section aria-labelledby="past-workshops-heading">
-                <h2
-                  id="past-workshops-heading"
-                  className="mb-12 text-center text-[11px] uppercase tracking-[0.28em] text-black/45"
-                >
-                  Past Workshops
-                </h2>
-
-                <div className="space-y-28 md:space-y-40">
-                  {past.map((workshop, index) => (
-                    <WorkshopSlideshow
-                      key={workshop.id}
-                      workshop={workshop}
-                      eagerLoadFirstImage={index === 0}
-                    />
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {past.length > 0 && upcoming.length > 0 && (
-              <div
-                className="h-16 border-b border-black/10 md:h-24"
-                aria-hidden="true"
+          <div className="space-y-28 md:space-y-40">
+            {projects.map((project, projectIndex) => (
+              <ProjectSlideshow
+                key={project.id}
+                project={project}
+                projectIndex={projectIndex}
               />
-            )}
-
-            {upcoming.length > 0 && (
-              <section
-                id={UPCOMING_SECTION_ID}
-                className="scroll-mt-32 pt-12 md:pt-16"
-                aria-labelledby="upcoming-workshops-heading"
-              >
-                <h2
-                  id="upcoming-workshops-heading"
-                  className="mb-12 text-center text-[11px] uppercase tracking-[0.28em] text-black/45"
-                >
-                  Upcoming Workshops
-                </h2>
-
-                <div className="space-y-28 md:space-y-40">
-                  {upcoming.map((workshop, index) => (
-                    <WorkshopSlideshow
-                      key={workshop.id}
-                      workshop={workshop}
-                      eagerLoadFirstImage={past.length === 0 && index === 0}
-                    />
-                  ))}
-                </div>
-              </section>
-            )}
-          </>
+            ))}
+          </div>
         )}
       </div>
     </section>
   );
 };
 
-export default Workshops;
+export default ArtForCause;

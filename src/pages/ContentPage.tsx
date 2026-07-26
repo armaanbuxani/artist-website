@@ -1,12 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import AboutSection from "@/components/AboutSection";
-import ContactSection from "@/components/ContactSection";
 import Paintings from "@/components/Paintings";
 import Sculptures from "@/components/Sculptures";
 import Workshops from "@/components/Workshops";
+import Pyrography from "@/components/Pyrography";
+import ArtForCause from "@/components/ArtForCause";
 import { fetchContent } from "@/lib/fetchContent";
 
-type PageName = "paintings" | "sculptures" | "workshops" | "about";
+type PageName =
+  | "paintings"
+  | "sculptures"
+  | "pyrography"
+  | "artForCause"
+  | "workshops"
+  | "about";
 
 interface Props {
   page: PageName;
@@ -51,7 +58,7 @@ const ContentPage = ({ page }: Props) => {
 
   if (page === "sculptures") {
     return (
-      <main className="pt-24 lg:pt-28">
+      <main>
         <Sculptures sculptures={content.sculptures} />
       </main>
     );
@@ -59,16 +66,31 @@ const ContentPage = ({ page }: Props) => {
 
   if (page === "workshops") {
     return (
-      <main className="pt-24 lg:pt-28">
+      <main>
         <Workshops workshops={content.workshops} />
       </main>
     );
   }
 
+  if (page === "pyrography") {
+    return (
+      <main>
+        <Pyrography pyrography={content.pyrography} />
+      </main>
+    );
+  }
+
+  if (page === "artForCause") {
+    return (
+      <main>
+        <ArtForCause projects={content.artForCause} />
+      </main>
+    );
+  }
+
   return (
-    <main className="pt-24 lg:pt-28">
+    <main>
       <AboutSection about={content.about} />
-      <ContactSection contact={content.contact} />
     </main>
   );
 };
